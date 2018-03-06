@@ -124,10 +124,10 @@ namespace SS.PowerShell
             var json = JObject.Parse(sJson);
 
             IList<ValidationError>  errors = new List<ValidationError>();
-            //if ($ErrorAsObject) {
-            //    $errors = New-Object -TypeName System.Collections.Generic.List[Newtonsoft.Json.Schema.ValidationError]
+            //if (this.ErrorAsObject) {
+            //    errors = new List<ValidationError>();
             //} else {
-            //    $errors = New-Object -TypeName System.Collections.Generic.List[string]
+            //    errors = new List<string>();
             //}
 
             // validate JSON
