@@ -63,7 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="LICENSE.txt" />
+    <Content Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SS.PowerShell.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

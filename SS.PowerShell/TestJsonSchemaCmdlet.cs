@@ -25,7 +25,7 @@ namespace SS.PowerShell
     /// </summary>
     [Cmdlet(VerbsDiagnostic.Test, "JsonSchema")]
     [OutputType(typeof(SchemaTestResult))]
-    public class TestJsonSchemaCmdlet : Cmdlet
+    public class TestJsonSchemaCmdlet : PSCmdlet
     {
         /// <summary>
         /// The JSON schema file to test against.
@@ -54,20 +54,27 @@ namespace SS.PowerShell
         //public SwitchParameter ErrorAsObject { get; set; }
 
         private bool _Continue = true;
+        private string _SchemaFile;
+        private string _JsonFile;
 
         protected override void BeginProcessing()
         {
+            this._SchemaFile = this.GetUnresolvedProviderPathFromPSPath(this.SchemaFile);
+            WriteDebug(string.Format("SchemaFile: {0}", this._SchemaFile));
+            this._JsonFile = this.GetUnresolvedProviderPathFromPSPath(this.JsonFile);
+            WriteDebug(string.Format("JsonFile: {0}", this._JsonFile));
+
+            if (!File.Exists(this._SchemaFile))
+            {
+                WriteError(new ErrorRecord(new FileNotFoundException("Schema file not found!", this._SchemaFile), "SchemaExists,SS.PowerShell.TestJsonSchemaCmdlet", ErrorCategory.ObjectNotFound, this._SchemaFile));
+                _Continue = false;
+            }
+            if (!File.Exists(this._JsonFile))
+            {
+                WriteError(new ErrorRecord(new FileNotFoundException("JSON file not found!", this._JsonFile), "JsonExists,SS.PowerShell.TestJsonSchemaCmdlet", ErrorCategory.ObjectNotFound, this._JsonFile));
+                _Continue = false;
+            }
             base.BeginProcessing();
-            if (!File.Exists(this.SchemaFile))
-            {
-                WriteError(new ErrorRecord(new FileNotFoundException("Schema file not found!", this.SchemaFile), "SchemaExists,SS.PowerShell.TestJsonSchemaCmdlet", ErrorCategory.ObjectNotFound, this.SchemaFile));
-                _Continue = false;
-            }
-            if (!File.Exists(this.JsonFile))
-            {
-                WriteError(new ErrorRecord(new FileNotFoundException("JSON file not found!", this.JsonFile), "JsonExists,SS.PowerShell.TestJsonSchemaCmdlet", ErrorCategory.ObjectNotFound, this.JsonFile));
-                _Continue = false;
-            }
         }
 
         protected override void ProcessRecord()
@@ -113,9 +120,9 @@ namespace SS.PowerShell
             }
 
             WriteVerbose("Reading Schema File.");
-            string sSchema = File.ReadAllText(this.SchemaFile, enc);
+            string sSchema = File.ReadAllText(this._SchemaFile, enc);
             WriteVerbose("Reading JSON File.");
-            string sJson = File.ReadAllText(this.JsonFile, enc);
+            string sJson = File.ReadAllText(this._JsonFile, enc);
 
             // load schema
             WriteVerbose("Parsing Schema File.");
