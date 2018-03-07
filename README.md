@@ -5,3 +5,7 @@ All [releases](https://www.powershellgallery.com/packages/SS.PowerShell/) can be
 ```PowerShell
 > Install-Module -Name SS.PowerShell 
 ```
+
+## Currently supports... 
+* Validate JSON files against a JSON schema file using Newtonsoft.Json.Schema library. 
+* Validate XML files against a XSD schema file.
