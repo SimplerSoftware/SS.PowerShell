@@ -24,9 +24,11 @@ namespace SS.PowerShell
     /// </example>
     /// </summary>
     [Cmdlet(VerbsDiagnostic.Test, "JsonSchema")]
-    [OutputType(typeof(SchemaTestResult))]
+    [OutputType(typeof(SchemaTestResult<ValidationError>))]
     public class TestJsonSchemaCmdlet : PSCmdlet
     {
+        #region Parameters
+
         /// <summary>
         /// The JSON schema file to test against.
         /// <para type="description">The JSON schema file to test against.</para>
@@ -52,6 +54,7 @@ namespace SS.PowerShell
 
         //[Parameter(Position = 3, HelpMessage = "Return errors as detailed objects instead of strings.")]
         //public SwitchParameter ErrorAsObject { get; set; }
+        #endregion
 
         private bool _Continue = true;
         private string _SchemaFile;
@@ -59,8 +62,10 @@ namespace SS.PowerShell
 
         protected override void BeginProcessing()
         {
+            // Convert path to absolute path relative to calling script's/prompt's path
             this._SchemaFile = this.GetUnresolvedProviderPathFromPSPath(this.SchemaFile);
             WriteDebug(string.Format("SchemaFile: {0}", this._SchemaFile));
+            // Convert path to absolute path relative to calling script's/prompt's path
             this._JsonFile = this.GetUnresolvedProviderPathFromPSPath(this.JsonFile);
             WriteDebug(string.Format("JsonFile: {0}", this._JsonFile));
 
@@ -142,7 +147,7 @@ namespace SS.PowerShell
             var valid = SchemaExtensions.IsValid(json, schema, out errors);
             
             // return error messages and line info
-            WriteObject(new SchemaTestResult(){
+            WriteObject(new SchemaTestResult<ValidationError>(){
                 Valid = valid,
                 Errors = valid ? null : errors
             });

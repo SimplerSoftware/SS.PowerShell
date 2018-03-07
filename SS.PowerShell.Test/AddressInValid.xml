@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<addresses xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:noNamespaceSchemaLocation='AddressSchema.xsd'>
+
+  <address>
+    <name>John Doe</name>
+    <street>1100 Congress Ave</street>
+    <city>Austin</city>
+    <state>TX</state>
+    <zip>78701-0000</zip>
+  </address>
+
+</addresses>
