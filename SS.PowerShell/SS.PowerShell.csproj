@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SS.PowerShell</RootNamespace>
     <AssemblyName>SS.PowerShell</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,11 +37,23 @@
     <XmlDoc2CmdletDocStrict>true</XmlDoc2CmdletDocStrict>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=1.16.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.1.16.2\lib\net451\MimeKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MsgKit, Version=1.2.4.0, Culture=neutral, PublicKeyToken=77f48a8cc004fa9a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MsgKit.1.2.4\lib\MsgKit.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json.Schema, Version=3.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.Schema.3.0.9\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenMcdf, Version=2.1.3.34730, Culture=neutral, PublicKeyToken=fdbb1629d7c00800, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenMcdf.2.1.3.34730\lib\OpenMcdf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,6 +61,7 @@
       <HintPath>..\packages\Microsoft.PowerShell.5.ReferenceAssemblies.1.1.0\lib\net4\System.Management.Automation.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,13 +71,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncodingType.cs" />
+    <Compile Include="Outlook\AddressObject.cs" />
+    <Compile Include="Outlook\AttachmentObject.cs" />
+    <Compile Include="Outlook\EmailImportance.cs" />
+    <Compile Include="Outlook\EmailObject.cs" />
+    <Compile Include="Outlook\NewOutlookEmailCmdlet.cs" />
+    <Compile Include="Outlook\AddOutlookEmailAttachmentCmdlet.cs" />
+    <Compile Include="Outlook\SaveOutlookEmailCmdlet.cs" />
     <Compile Include="SchemaTestResult.cs" />
     <Compile Include="TestJsonSchemaCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestXmlSchemaCmdlet.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
