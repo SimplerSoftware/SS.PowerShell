@@ -38,6 +38,7 @@
     <Content Include="AddressSchema.xsd" />
     <Content Include="AddressValid.xml" />
     <Content Include="PersonValid.json" />
+    <Content Include="win-2016-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
