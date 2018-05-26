@@ -30,12 +30,27 @@
 			Remove-Module SS.PowerShell -ErrorAction Ignore
 			try{
 				Import-Module SS.PowerShell
-				$msg = New-OutlookEmail -SenderEmail "user@example.org" -Subject "Test Subject" -ErrorVariable err
+				$msg = New-OutlookEmail -SenderEmail "user@example.org" -Subject "Test Subject" -Draft -ErrorVariable err
 				$msg | Should -Not -BeNullOrEmpty
 				$msg.Sender.EmailAddress | Should -Be "user@example.org"
 				$msg.Subject | Should -Be "Test Subject"
 				$err | Should -BeNullOrEmpty
 				Save-OutlookEmail -Email $msg -File "$PSScriptRoot\Test1.msg" -Force
+			} finally {
+				Remove-Module SS.PowerShell -Force
+			}
+		}
+		It "save new email msg object with embedded image" {
+			Remove-Module SS.PowerShell -ErrorAction Ignore
+			try{
+				Import-Module SS.PowerShell
+				$msg = New-OutlookEmail -SenderEmail "user@example.org" -Subject "Test Subject" -BodyHtml "<img src=""cid:win-icon"" />" -Draft -ErrorVariable err
+				$msg | Add-OutlookEmailAttachment -File "$PSScriptRoot\win-2016-icon.png" -Inline -ContentId "win-icon"
+				$msg.Attachments.Count | Should -BeGreaterThan 0
+				$msg.Sender.EmailAddress | Should -Be "user@example.org"
+				$msg.Subject | Should -Be "Test Subject"
+				$err | Should -BeNullOrEmpty
+				Save-OutlookEmail -Email $msg -File "$PSScriptRoot\TestWithEmbeddedImage.msg" -Force
 			} finally {
 				Remove-Module SS.PowerShell -Force
 			}
