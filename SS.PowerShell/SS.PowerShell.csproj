@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EncodingType.cs" />
+    <Compile Include="JSchemaUrlResolverEvent.cs" />
     <Compile Include="Outlook\AddressObject.cs" />
     <Compile Include="Outlook\AttachmentObject.cs" />
     <Compile Include="Outlook\EmailImportance.cs" />

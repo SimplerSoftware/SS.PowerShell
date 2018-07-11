@@ -1,0 +1,143 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+
+  },
+  "variables": {
+    "adminPassword": "12345",
+    "adminAccount": "admin"
+  },
+  "resources": [
+    {
+      "sku": {
+        "name": "Aligned"
+      },
+      "type": "Microsoft.Compute/availabilitySets",
+      "apiVersion": "2017-12-01",
+      "name": "avSet001",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "platformUpdateDomainCount": 5,
+        "platformFaultDomainCount": 3
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "tags": {
+
+      },
+      "apiVersion": "2017-12-01",
+      "name": "computevm001",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "storageProfile": {
+          "osDisk": {
+            "createOption": "FromImage",
+            "name": "computevm001-osdisk",
+            "managedDisk": {
+              "storageAccountType": "Standard_LRS"
+            },
+            "caching": "ReadWrite"
+          },
+          "imageReference": {
+            "publisher": "MicrosoftWindowsServer",
+            "version": "latest",
+            "offer": "WindowsServer",
+            "sku": "2012-R2-Datacenter"
+          },
+          "dataDisks": [
+            {
+              "name": "computevm001-data00",
+              "createOption": "Empty",
+              "caching": "ReadWrite",
+              "managedDisk": {
+                "storageAccountType": "Standard_LRS"
+              },
+              "lun": 0,
+              "diskSizeGB": 200
+            },
+            {
+              "name": "computevm001-data01",
+              "createOption": "Empty",
+              "caching": "ReadWrite",
+              "managedDisk": {
+                "storageAccountType": "Standard_LRS"
+              },
+              "lun": 1,
+              "diskSizeGB": 200
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": false
+          }
+        },
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets','avSet001')]"
+        },
+        "hardwareProfile": {
+          "vmSize": "Standard_DS12_v2"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces','computevm001-pnic0')]",
+              "properties": {
+                "primary": true
+              }
+            }
+          ]
+        },
+        "osProfile": {
+          "adminPassword": "[variables('adminPassword')]",
+          "computerName": "computevm001",
+          "secrets": [
+
+          ],
+          "adminUsername": "[variables('adminAccount')]",
+          "windowsConfiguration": {
+            "provisionVMAgent": true,
+            "enableAutomaticUpdates": true
+          }
+        }
+      },
+      "dependsOn": [
+        "avSet001",
+        "computevm001-pnic0"
+      ]
+    },
+    {
+      "resources": [
+
+      ],
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2017-10-01",
+      "name": "computevm001-pnic0",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "enableIPForwarding": false,
+        "dnsSettings": {
+          "dnsServers": [
+
+          ]
+        },
+        "ipConfigurations": [
+          {
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[concat(resourceId('vNetRsg','Microsoft.Network/virtualNetworks','vNet01'),'/subnets/Subnet01')]"
+              }
+            },
+            "name": "Ipconfig"
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+
+  }
+}
