@@ -6,13 +6,13 @@ param(
         $Module
 )
 
-if (!$ApiKey -and (Test-Path "$PSScriptRoot..\..\.Nuget.key")) {
+if (!$ApiKey -and (Test-Path "$PSScriptRoot\..\..\.Nuget.key")) {
         # For local testing/publishing
-        $ApiKey = (Get-Content -Raw "$PSScriptRoot..\..\.Nuget.key")
+        $ApiKey = (Get-Content -Raw "$PSScriptRoot\..\..\.Nuget.key")
 }
 
 if ($ApiKey){
-        Publish-Module -Name $Module -NuGetApiKey $ApiKey
+        Publish-Module -Name $Module -NuGetApiKey $ApiKey -AllowPrerelease
 } else {
         Write-Error "Nuget API key is missing, please create the file with one line that contains your API key for nuget or pass it in via the ApiKey parameter."
 }

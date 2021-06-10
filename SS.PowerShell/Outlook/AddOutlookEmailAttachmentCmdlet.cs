@@ -11,12 +11,16 @@ using IO=System.IO;
 namespace SS.PowerShell.Outlook
 {
     /// <summary>
-    /// Save a Email Object as a Outlook MSG file.
-    /// <para type="synopsis">Save a Email Object as a Outlook MSG file.</para>
-    /// <para type="description">Save a Email Object as a Outlook MSG file.</para>
+    /// Add attachment to message.
+    /// <para type="synopsis">Add attachment to message.</para>
+    /// <para type="description">Add attachment to message.</para>
     /// <example>
-    ///   <title>Default usage. </title>
-    ///   <code>Save-OutlookEmail </code>
+    ///   <title>Default usage.</title>
+    ///   <code>$msg | Add-OutlookEmailAttachment -File ".\directort\file.txt"</code>
+    /// </example>
+    /// <example>
+    ///   <title>Inline content usage.</title>
+    ///   <code>$msg | Add-OutlookEmailAttachment -File ".\directort\crocodile.jpg" -Inline -ContentId "tick-tock"</code>
     /// </example>
     /// </summary>
     [Cmdlet(VerbsCommon.Add, "OutlookEmailAttachment")]
