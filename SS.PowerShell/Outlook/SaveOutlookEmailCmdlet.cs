@@ -73,8 +73,9 @@ namespace SS.PowerShell.Outlook
                 sender = new Sender(this.Email.Sender.EmailAddress, this.Email.Sender.DisplayName);
             using (var email = new Email(sender, this.Email.Subject, this.Email.Draft))
             {
-                //email.Recipients.AddTo("captainhook@neverland.com", "Captain Hook");
-                //email.Recipients.AddCc("crocodile@neverland.com", "The evil ticking crocodile");
+                this.Email.To.ForEach(r => email.Recipients.AddTo(r.EmailAddress, r.DisplayName));
+                this.Email.CC.ForEach(r => email.Recipients.AddCc(r.EmailAddress, r.DisplayName));
+                this.Email.BCC.ForEach(r => email.Recipients.AddBcc(r.EmailAddress, r.DisplayName));
                 email.BodyText = this.Email.BodyText;
                 email.BodyHtml = this.Email.BodyHtml;
                 email.Importance = (MessageImportance)this.Email.Importance;
@@ -82,7 +83,6 @@ namespace SS.PowerShell.Outlook
                 email.Priority = MessagePriority.PRIO_NORMAL;
                 //email.ReceivedOn;
                 //email.SentOn;
-                //email.Attachments.Add(@"d:\crocodile.jpg");
                 this.Email.Attachments.ForEach(x => email.Attachments.Add(x.File, isInline: x.Inline, contentId: x.ContentId));
                 email.Save(this._File);
             }

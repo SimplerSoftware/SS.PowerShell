@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Simpler Software")]
 [assembly: AssemblyProduct("SS.PowerShell")]
-[assembly: AssemblyCopyright("Copyright © Simpler Software 2018")]
+[assembly: AssemblyCopyright("Copyright © Simpler Software 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,9 +33,9 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1807.19")]
-[assembly: AssemblyFileVersion("1.0.1807.19")]
+[assembly: AssemblyVersion("1.0.2106.20")]
+[assembly: AssemblyFileVersion("1.0.2106.20")]
 [assembly: NeutralResourcesLanguage("en-US")]
 
 
-[assembly: AssemblyInformationalVersion("1.0.48")]
+[assembly: AssemblyInformationalVersion("1.0.49")]

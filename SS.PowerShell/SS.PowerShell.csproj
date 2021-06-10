@@ -69,8 +69,10 @@
   <ItemGroup>
     <Compile Include="EncodingType.cs" />
     <Compile Include="JSchemaUrlResolverEvent.cs" />
+    <Compile Include="Outlook\AddOutlookRecipientCmdlet.cs" />
     <Compile Include="Outlook\AddressObject.cs" />
     <Compile Include="Outlook\AttachmentObject.cs" />
+    <Compile Include="Outlook\RecipientType.cs" />
     <Compile Include="Outlook\EmailImportance.cs" />
     <Compile Include="Outlook\EmailObject.cs" />
     <Compile Include="Outlook\NewOutlookEmailCmdlet.cs" />

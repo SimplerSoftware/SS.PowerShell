@@ -16,6 +16,9 @@ namespace SS.PowerShell.Outlook
         public string Subject { get; set; }
         public bool Draft { get; set; }
         public List<AttachmentObject> Attachments { get; internal set; } = new List<AttachmentObject>();
+        public List<AddressObject> To { get; internal set; } = new List<AddressObject>();
+        public List<AddressObject> CC { get; internal set; } = new List<AddressObject>();
+        public List<AddressObject> BCC { get; internal set; } = new List<AddressObject>();
 
         public EmailObject(AddressObject sender, string subject, bool draft)
         {
